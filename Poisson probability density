@@ -1,0 +1,89 @@
+from tkinter import *
+import math
+root=Tk()
+root.title("Poisson Distribution")
+root.geometry('500x400')
+
+headline=Label(root,text="POISSON  DISTRIBUTION",fg='orange',font='20')
+lab=Label(root,text=' ')
+lab0=Label(root,text=' ')
+lab1=Label(root,text='                                           ')
+lab2=Label(root,text='    :    ')
+lab3=Label(root,text='    :    ')
+lab4=Label(root,text='    :    ')
+lab5=Label(root,text='    :    ')
+lab6=Label(root,text='    :    ')
+
+mean=Label(root,text='Mean')
+num=Label(root,text='Number')
+prob=Label(root,text='Probability')
+valuex=Label(root,text='X')
+tprob=Label(root,text='P(x)')
+
+equation1=StringVar()
+equation2=StringVar()
+equation3=StringVar()
+equation4=StringVar()
+equation5=StringVar()
+
+emean=Entry(root,width=10,textvariable=equation1)
+enum=Entry(root,width=10,textvariable=equation2)
+eprob=Entry(root,width=10,textvariable=equation3)
+ex=Entry(root,width=10,textvariable=equation4)
+etprob=Entry(root,width=10,textvariable=equation5)
+
+btn=Button(root,text='Calculate',fg='salmon',bg='pink',command=lambda :calucalte())
+lab.grid(row=3,column=1)
+lab1.grid(row=6,column=1)
+headline.grid(row=6,column=4,columnspan=5)
+num.grid(row=7,column=4)
+lab2.grid(row=7,column=6)
+enum.grid(row=7,column=8)
+prob.grid(row=8,column=4)
+lab3.grid(row=8,column=6)
+eprob.grid(row=8,column=8)
+mean.grid(row=9,column=4)
+lab4.grid(row=9,column=6)
+emean.grid(row=9,column=8)
+valuex.grid(row=10,column=4)
+lab5.grid(row=10,column=6)
+ex.grid(row=10,column=8)
+tprob.grid(row=11,column=4)
+lab6.grid(row=11,column=6)
+etprob.grid(row=11,column=8)
+lab0.grid(row=13,column=1)
+btn.grid(row=15,column=6)
+
+def calucalte():
+    mue=float(emean.get())
+    x=float(ex.get())
+    def recurssion(x):
+        if (x == 1) or (x == 0):
+            return 1
+        else:
+            return (x * recurssion(x - 1))
+    z=recurssion(x)
+    if mue==0:
+        n=float(enum.get())
+        p=float(eprob.get())
+        mue=n*p
+        exp=math.exp(-mue)
+        mue1=pow(mue,x)
+        last=(exp*mue1)/z
+    else:
+        n='-'
+        p='-'
+        exp = math.exp(-mue)
+        mue1 = pow(mue, x)
+        last = (exp * mue1) / z
+    settingvalues(mue,n,p,x,last)
+
+def settingvalues(mue,n,p,x,last):
+    emean = equation1.set(mue)
+    enum = equation2.set(n)
+    eprob = equation3.set(p)
+    ex = equation4.set(x)
+    etprob = equation5.set(last)
+
+
+root.mainloop()
